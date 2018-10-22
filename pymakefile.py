@@ -1,3 +1,4 @@
+import shutil
 import os
 import subprocess as sp
 import pymakefile_user as user
@@ -12,10 +13,12 @@ def run_cmd(cmd):
                 flat_cmd.append(item)
         else:
             flat_cmd.append(sub)
+    # Run the command
     result = sp.run(flat_cmd,
                     stdout=sp.PIPE,
                     stderr=sp.PIPE,
                     encoding='utf-8')
+    # Print commands result
     print(' '.join(flat_cmd))
     if str(result.stdout).strip() != '':
         print(f'{result.stdout}')
@@ -24,11 +27,41 @@ def run_cmd(cmd):
 
 
 # Remove output directory
-run_cmd(['rm', '-f', user.OUTPUT_DIR])
+print(f'Removing output directory [{user.OBJECTS_DIR}]...')
+outdir = os.path.join('.', user.OBJECTS_DIR)
+outdir = os.path.normpath(outdir)
+if os.path.exists(outdir) and os.path.isdir(outdir):
+    shutil.rmtree(outdir)
+
 # Run compilator for each source file
+user.SOURCE_FILES = [os.path.normpath(x) for x in user.SOURCE_FILES]
+user.INCLUDE_DIRS = ['-I' + x for x in user.INCLUDE_DIRS]
+print(f'Running compilation for all source files {user.SOURCE_FILES}...')
+objectfiles = []
 for srcfile in user.SOURCE_FILES:
-    outdir = os.path.join(user.OUTPUT_DIR, os.path.dirname(srcfile)).replace('/', '\\')
-    outfilename = os.path.splitext(srcfile)[0] + '.o'
+    # Create directory for output
+    outdir = os.path.join('.', user.OBJECTS_DIR, os.path.dirname(srcfile))
+    outdir = os.path.normpath(outdir)
+    if not os.path.exists(outdir):
+        print(f'Creating output directory [{outdir}]...')
+        os.makedirs(outdir)
+    # Compiling source file
+    outfilename = os.path.splitext(os.path.basename(srcfile))[0] + '.o'
     outpath = os.path.join(outdir, outfilename)
-    run_cmd(['mkdir', outdir])
-    run_cmd([user.CPP, user.CPP_FLAGS, srcfile, '-o', outpath])
+    outpath = os.path.normpath(outpath)
+    print(f'Compiling source file [{srcfile}]...')
+    run_cmd([user.CPP, '-c', user.CPP_FLAGS, user.INCLUDE_DIRS,
+             srcfile, '-o', outpath])
+    objectfiles.append(outpath)
+
+# Link object files
+print(f'Linking files {objectfiles}...')
+outdir = os.path.join('.', user.BIN_DIR)
+outdir = os.path.normpath(outdir)
+if not os.path.exists(outdir):
+    print(f'Creating output directory [{outdir}]...')
+    os.makedirs(outdir)
+outpath = os.path.join(outdir, user.BIN_NAME)
+outpath = os.path.normpath(outpath)
+print(f'Creating binary file {outpath}...')
+run_cmd([user.LD, objectfiles, user.CPP_FLAGS, '-o', outpath])

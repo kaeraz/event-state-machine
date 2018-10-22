@@ -12,13 +12,19 @@ CPP_FLAGS = [
     '-pedantic',
     '-g'
 ]
-# Set the output directory
-OUTPUT_DIR = 'obj'
+# Set the output binary file name
+BIN_NAME = 'event-state-machine.exe'
+# Set the binary output directory
+BIN_DIR = 'bin'
+# Set the objects output directory
+OBJECTS_DIR = 'obj'
 # Set source files
 SOURCE_FILES = [
-    'src/main.cpp'
+    'src/main.cpp',
+    'src/EventSM/EventSM.cpp'
 ]
 # Set include directories
 INCLUDE_DIRS = [
-    './'
+    '.',
+    'src'
 ]
