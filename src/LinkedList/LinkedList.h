@@ -1,17 +1,12 @@
-#ifndef SRC_LINKEDLIST_LINKEDLIST_H_
-#define SRC_LINKEDLIST_LINKEDLIST_H_
+#ifndef LINEDLIST_H
+#define LINEDLIST_H
 
-#include <stddef.h>
+#include "ListNode.h"
+
 
 /*
  * Based on: https://github.com/ivanseidel/LinkedList/blob/master/LinkedList.h
  */
-
-template <class T> struct ListNode
-{
-  T *data;
-  ListNode<T> *next;
-};
 
 template <typename T> class LinkedList
 {
@@ -27,6 +22,7 @@ public:
   ListNode<T> *get(int index);
   void insert(ListNode<T> *);
 };
+
 
 template <typename T> LinkedList<T>::LinkedList()
 {
@@ -77,4 +73,4 @@ template <typename T> void LinkedList<T>::insert(ListNode<T> *node)
   _size++;
 }
 
-#endif /* SRC_LINKEDLIST_LINKEDLIST_H_ */
+#endif /* end of include guard: LINKEDLIST_H */

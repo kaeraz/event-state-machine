@@ -13,9 +13,10 @@ int main(void)
   int data_A = 1;
   int data_B = 2;
   int data_C = 3;
-  ListNode<int> node_A = {&data_A, NULL};
-  ListNode<int> node_B = {&data_B, NULL};
-  ListNode<int> node_C = {&data_C, NULL};
+
+  ListNode<int> node_A(&data_A);
+  ListNode<int> node_B(&data_B);
+  ListNode<int> node_C(&data_C);
 
   l.insert(&node_A);
   l.insert(&node_B);

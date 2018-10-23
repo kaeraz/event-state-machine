@@ -26,6 +26,14 @@ def run_cmd(cmd):
         print(f'STDERR: {result.stderr}')
 
 
+# Compilation start info
+info = f' Compiling "{user.BIN_NAME}" '
+print('')
+print('*'*80)
+print(f'{info:*^80}')
+print('*'*80)
+
+
 # Remove output directory
 print(f'Removing output directory [{user.OBJECTS_DIR}]...')
 outdir = os.path.join('.', user.OBJECTS_DIR)
@@ -38,6 +46,7 @@ user.SOURCE_FILES = [os.path.normpath(x) for x in user.SOURCE_FILES]
 user.INCLUDE_DIRS = ['-I' + x for x in user.INCLUDE_DIRS]
 print(f'Running compilation for all source files {user.SOURCE_FILES}...')
 objectfiles = []
+print('')
 for srcfile in user.SOURCE_FILES:
     # Create directory for output
     outdir = os.path.join('.', user.OBJECTS_DIR, os.path.dirname(srcfile))
@@ -53,6 +62,7 @@ for srcfile in user.SOURCE_FILES:
     run_cmd([user.CPP, '-c', user.CPP_FLAGS, user.INCLUDE_DIRS,
              srcfile, '-o', outpath])
     objectfiles.append(outpath)
+    print('')
 
 # Link object files
 print(f'Linking files {objectfiles}...')
@@ -63,5 +73,6 @@ if not os.path.exists(outdir):
     os.makedirs(outdir)
 outpath = os.path.join(outdir, user.BIN_NAME)
 outpath = os.path.normpath(outpath)
+print('')
 print(f'Creating binary file {outpath}...')
 run_cmd([user.LD, objectfiles, user.CPP_FLAGS, '-o', outpath])
