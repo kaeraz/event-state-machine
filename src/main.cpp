@@ -14,9 +14,9 @@ int main(void)
   int data_B = 2;
   int data_C = 3;
 
-  ListNode<int> node_A(&data_A);
-  ListNode<int> node_B(&data_B);
-  ListNode<int> node_C(&data_C);
+  ListNode<int> node_A(data_A);
+  ListNode<int> node_B(data_B);
+  ListNode<int> node_C(data_C);
 
   l.insert(&node_A);
   l.insert(&node_B);
@@ -24,7 +24,7 @@ int main(void)
 
   for (int i = 0; i < l.size(); i++)
   {
-    cout << "List node " << i << " with value of " << *l.get(i)->data << endl;
+    cout << "List node " << i << " with value of " << l.get(i)->data << endl;
   }
 
   cout << "End of example..." << endl;

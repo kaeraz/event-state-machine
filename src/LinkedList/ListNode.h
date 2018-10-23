@@ -7,12 +7,12 @@
 template <typename T> class ListNode
 {
 public:
-  ListNode(T *data) : data(data)
+  ListNode(const T &data) : data(data)
   {
     next = NULL;
   };
 
-  T *data;
+  const T &data;
   ListNode<T> *next;
 };
 
