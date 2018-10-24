@@ -8,15 +8,15 @@ int main(void)
 {
   cout << "Start of example..." << endl;
 
-  LinkedList<int> l = LinkedList<int>();
+  k2lib::LinkedList<int> l;
 
   int data_A = 1;
   int data_B = 2;
   int data_C = 3;
 
-  ListNode<int> node_A(data_A);
-  ListNode<int> node_B(data_B);
-  ListNode<int> node_C(data_C);
+  k2lib::ListNode<int> node_B(data_B);
+  k2lib::ListNode<int> node_C(data_C);
+  k2lib::ListNode<int> node_A(data_A);
 
   l.insert(&node_A);
   l.insert(&node_B);

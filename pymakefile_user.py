@@ -10,7 +10,8 @@ LD  = 'g++'
 CPP_FLAGS = [
     '-Wall',
     '-pedantic',
-    '-g'
+    '-g',
+    '-Wfatal-errors'
 ]
 # Set the output binary file name
 BIN_NAME = 'event-state-machine.exe'

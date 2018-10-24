@@ -3,7 +3,8 @@
 
 #include "ListNode.h"
 
-
+namespace k2lib
+{
 /*
  * Based on: https://github.com/ivanseidel/LinkedList/blob/master/LinkedList.h
  */
@@ -72,5 +73,7 @@ template <typename T> void LinkedList<T>::insert(ListNode<T> *node)
 
   _size++;
 }
+
+} // namespace k2lib
 
 #endif /* end of include guard: LINKEDLIST_H */

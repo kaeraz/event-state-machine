@@ -3,6 +3,9 @@
 
 #include <stddef.h>
 
+namespace k2lib
+{
+/* namespace k2lib body */
 
 template <typename T> class ListNode
 {
@@ -15,5 +18,7 @@ public:
   const T &data;
   ListNode<T> *next;
 };
+
+} // namespace k2lib
 
 #endif /* end of include guard: LISTNODE_H */
